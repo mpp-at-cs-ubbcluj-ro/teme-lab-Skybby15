@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'main'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implementation group: 'com.google.guava', name: 'guava', version: '33.4.0-jre'
+}
+
+application{
+    mainClass = 'main.Main'
+}
+
+jar{
+    manifest{
+        attributes('Main-Class':'main.Main')
+    }
+    from{
+        configurations.runtimeClasspath.collect{ it.isDirectory() ? id:zipTree(it)}
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+}
+
+test {
+    useJUnitPlatform()
+}
