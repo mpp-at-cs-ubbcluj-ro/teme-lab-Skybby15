@@ -1,0 +1,3 @@
+rootProject.name = 'MppJava'
+include 'ModulLab3'
+
